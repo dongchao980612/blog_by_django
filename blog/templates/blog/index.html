@@ -78,13 +78,49 @@
 
 </head>
 <body>
-
+<div class="container page-header">
+    <h1>Donney Blogs</h1>
+</div>
 <div class="container page-body">
-    <div class="col-md12 row main">
-        <div class="body-main text-center">
-            <h1>404 - 文章未找到</h1>
-            <p>文章找不到，可能已经被删除或者链接失效了。</p>
-            <a href="/blog/index" class="btn btn-primary">返回首页</a>
+    <div class="col-md-9" row="main">
+        <div class="body-main">
+
+            {% for article in articles_list %}
+                <div>
+                    <h2><a href="/blog/detail/{{ article.article_id }}">{{ article.article_title }}</a></h2>
+                    <p>{{ article.article_abstract }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="body-footer">
+            <div class="clo-md-4 clo-md-offset-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="/blog/index/?page={{previous_page}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {%for num in page_num%}
+                        <li><a href="/blog/index/?page={{num}}">{{num}}</a></li>
+                        {%endfor%}
+                        <li>
+                            <a href="/blog/index/?page={{next_page}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3" row="complementary">
+        <div>
+            <h2>最新文章</h2>
+            {% for article in top5_list %}
+                <h4><a href="/blog/detail/{{ article.article_id }}">{{ article.article_title }}</a></h4>
+            {% endfor %}
         </div>
     </div>
 </div>
